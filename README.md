@@ -16,6 +16,7 @@ Build server:
 Test VS Code plugin:
 
       cd helloFalks
+      npm install
       code .
 
       F5
