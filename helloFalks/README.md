@@ -1,1 +1,3 @@
 # helloFalksCodePlugin
+
+Note: adjusting per new scala-based tethysls server ...

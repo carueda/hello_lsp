@@ -10,32 +10,32 @@ import * as vscode from 'vscode';
 // Import the language client, language client options and server options from VSCode language client.
 import { LanguageClient, LanguageClientOptions, ServerOptions } from 'vscode-languageclient';
 
-// Name of the launcher class which contains the main.
-const main: string = 'StdioLauncher';
-
 export function activate (context: vscode.ExtensionContext) {
-  console.log('Congratulations, your extension "helloFalks" is now active!');
+  console.log('::: Activating your extension...');
 
   // Get the java home from the process environment.
   const { JAVA_HOME } = process.env;
 
-  console.log(`Using java from JAVA_HOME: ${JAVA_HOME}`);
+  console.log(`::: Using java from JAVA_HOME: ${JAVA_HOME}`);
   // If java home is available continue.
   if (JAVA_HOME) {
     // Java execution path.
-    let excecutable: string = path.join(JAVA_HOME, 'bin', 'java');
+    const command: string = path.join(JAVA_HOME, 'bin', 'java');
 
-    // path to the launcher.jar
-    let classPath = path.join(__dirname, '..', '..', 'hellols', 'launcher', 'target', 'launcher.jar');
-    console.log(`Using classPath = ${classPath}`);
-    const args: string[] = ['-cp', classPath];
+    // With initial server in Java:
+    // let classPath = path.join(__dirname, '..', '..', 'hellols', 'launcher', 'target', 'launcher.jar');
+    // console.log(`::: Using classPath = ${classPath}`);
+    // const args: string[] = ['-cp', classPath, 'StdioLauncher'];
+
+    // With server in Scala:
+    const tethyslsJar = path.join(__dirname, '../../../../../bitbucket/mbari/tethysls/tethysls/target/scala-2.13/tethysls-0.0.0.jar');
+    const args: string[] = ['-jar', tethyslsJar];
+    console.log(`::: Using tethyslsJar = ${tethyslsJar}`);
 
     // Set the server options
-    // -- java execution path
-    // -- argument to be pass when executing the java command
     let serverOptions: ServerOptions = {
-      command: excecutable,
-      args: [...args, main],
+      command,
+      args,
       options: {}
     };
 
